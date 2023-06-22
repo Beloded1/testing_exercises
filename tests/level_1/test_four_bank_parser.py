@@ -2,6 +2,7 @@ from functions.level_1.four_bank_parser import BankCard, SmsMessage, parse_ineco
 import datetime
 import decimal
 
+
 def test__parse_ineco_expense__succes():
     sms = SmsMessage(
         text="100.00 CARD1234, authcode1234 01.01.23 11:30 Alfa",

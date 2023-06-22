@@ -1,26 +1,42 @@
 from functions.level_1_7.two_expense_categorizer import guess_expense_category
-from functions.level_1_7.models import Expense, ExpenseCategory
+from functions.level_1_7.models import ExpenseCategory
 import pytest
-from datetime import datetime
+from conftest import make_expenses
+
 
 @pytest.mark.parametrize(
     'expense, ExpenseCategory',
     [
-        (Expense(amount=10000, currency='RUB', card='1234', spent_in='Bastard place', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
+        (make_expenses(spent_in='Bastard place'),
         ExpenseCategory.BAR_RESTAURANT),
-        (Expense(amount=1000, currency='RUB', card='1234', spent_in='clean house', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
+        (make_expenses(spent_in='nice clean house'),
         ExpenseCategory.SUPERMARKET),
-        (Expense(amount=10, currency='USD', card='1234', spent_in='Netflix', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
+        (make_expenses(spent_in='Netflix USA'),
         ExpenseCategory.ONLINE_SUBSCRIPTIONS),
-        (Expense(amount=3000, currency='RUB', card='1234', spent_in='Wonder pharm', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
+        (make_expenses(spent_in='Wonder pharm'),
         ExpenseCategory.MEDICINE_PHARMACY),
-        (Expense(amount=2000, currency='RUB', card='1234', spent_in='kino park', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
-        ExpenseCategory.THEATRES_MOVIES_CULTURE),
-        (Expense(amount=2000, currency='RUB', card='1234', spent_in='www.taxi.yandex.ru', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
-        ExpenseCategory.TRANSPORT),
-        (Expense(amount=5000, currency='RUB', card='1234', spent_in='Y Ashota', spent_at=datetime(2023, 6, 1, 0, 0), category=None),
-        None),
     ]
 )
-def test__guess_expense_category(expense:Expense, ExpenseCategory:ExpenseCategory | None)->ExpenseCategory | None:
+def test__guess_expense_category_if_spent_in_contains_trigger_words(expense, ExpenseCategory):
     assert guess_expense_category(expense) == ExpenseCategory
+
+
+@pytest.mark.parametrize(
+    'expense, ExpenseCategory',
+    [
+        (make_expenses(spent_in='Bastard'),
+        ExpenseCategory.BAR_RESTAURANT),
+        (make_expenses(spent_in='pharm'),
+        ExpenseCategory.MEDICINE_PHARMACY),
+        (make_expenses(spent_in='www.taxi.yandex.ru'),
+        ExpenseCategory.TRANSPORT),
+
+    ]
+)
+def test__guess_expense_category_if_spent_in_is_trigger_word(expense, ExpenseCategory):
+    assert guess_expense_category(expense) == ExpenseCategory
+
+
+def test__guess_expense_category_if_spent_in_does_not_have_trigger_words(): 
+    expense = make_expenses(spent_in='Y Ashota')
+    assert guess_expense_category(expense) == None
