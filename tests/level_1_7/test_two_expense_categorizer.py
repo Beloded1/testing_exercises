@@ -1,42 +1,36 @@
 from functions.level_1_7.two_expense_categorizer import guess_expense_category
 from functions.level_1_7.models import ExpenseCategory
 import pytest
-from conftest import make_expenses
 
 
 @pytest.mark.parametrize(
-    'expense, ExpenseCategory',
+    'spent_in, expected_category',
     [
-        (make_expenses(spent_in='Bastard place'),
-        ExpenseCategory.BAR_RESTAURANT),
-        (make_expenses(spent_in='nice clean house'),
-        ExpenseCategory.SUPERMARKET),
-        (make_expenses(spent_in='Netflix USA'),
-        ExpenseCategory.ONLINE_SUBSCRIPTIONS),
-        (make_expenses(spent_in='Wonder pharm'),
-        ExpenseCategory.MEDICINE_PHARMACY),
+        ('Bastard place', ExpenseCategory.BAR_RESTAURANT),
+        ('nice clean house', ExpenseCategory.SUPERMARKET),
+        ('Netflix USA', ExpenseCategory.ONLINE_SUBSCRIPTIONS),
+        ('Wonder pharm', ExpenseCategory.MEDICINE_PHARMACY),
     ]
 )
-def test__guess_expense_category_if_spent_in_contains_trigger_words(expense, ExpenseCategory):
-    assert guess_expense_category(expense) == ExpenseCategory
+def test__guess_expense_category_if_spent_in_contains_trigger_words(spent_in, expected_category, make_expense):
+    expense = make_expense(spent_in=spent_in)
+    assert guess_expense_category(expense) == expected_category
 
 
 @pytest.mark.parametrize(
-    'expense, ExpenseCategory',
+    'spent_in, expected_category',
     [
-        (make_expenses(spent_in='Bastard'),
-        ExpenseCategory.BAR_RESTAURANT),
-        (make_expenses(spent_in='pharm'),
-        ExpenseCategory.MEDICINE_PHARMACY),
-        (make_expenses(spent_in='www.taxi.yandex.ru'),
-        ExpenseCategory.TRANSPORT),
+        ('Bastard', ExpenseCategory.BAR_RESTAURANT),
+        ('pharm', ExpenseCategory.MEDICINE_PHARMACY),
+        ('www.taxi.yandex.ru', ExpenseCategory.TRANSPORT),
 
     ]
 )
-def test__guess_expense_category_if_spent_in_is_trigger_word(expense, ExpenseCategory):
-    assert guess_expense_category(expense) == ExpenseCategory
+def test__guess_expense_category_if_spent_in_is_trigger_word(spent_in, expected_category, make_expense):
+    expanse = make_expense(spent_in=spent_in)
+    assert guess_expense_category(expanse) == expected_category
 
 
-def test__guess_expense_category_if_spent_in_does_not_have_trigger_words(): 
-    expense = make_expenses(spent_in='Y Ashota')
+def test__guess_expense_category_if_spent_in_does_not_have_trigger_words(make_expense): 
+    expense = make_expense(spent_in='Y Ashota')
     assert guess_expense_category(expense) == None
