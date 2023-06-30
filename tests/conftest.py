@@ -1,8 +1,12 @@
-from functions.level_1_7.models import Expense, Currency, BankCard, ExpenseCategory
-import decimal
 import datetime
+import decimal
 from datetime import datetime
+from unittest.mock import patch
+
 import pytest
+
+from functions.level_1_7.models import (BankCard, Currency, Expense,
+                                        ExpenseCategory)
 
 
 @pytest.fixture
@@ -25,3 +29,9 @@ def make_expense():
         )
 
     return inner
+
+
+@pytest.fixture
+def mock_config_parser():
+    with patch("functions.level_2.five_extra_fields.configparser.ConfigParser") as mock_parser:
+        yield mock_parser.return_value

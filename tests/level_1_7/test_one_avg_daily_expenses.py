@@ -1,8 +1,11 @@
 import decimal
 from datetime import datetime, timedelta
-from functions.level_1_7.one_avg_daily_expenses import calculate_average_daily_expenses
 from statistics import StatisticsError
+
 import pytest
+
+from functions.level_1_7.one_avg_daily_expenses import \
+    calculate_average_daily_expenses
 
 
 def test__calculate_average_daily_expenses_if_expenses_occurs_in_different_days(make_expense):

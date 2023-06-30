@@ -1,5 +1,6 @@
-from functions.level_1_7.three_is_subscription import is_subscription
 from datetime import datetime
+
+from functions.level_1_7.three_is_subscription import is_subscription
 
 
 def test__is_subscription__no_subscription_when_expense_occurs_in_same_month(make_expense):

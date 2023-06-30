@@ -1,6 +1,9 @@
-from functions.level_1.two_date_parser import compose_datetime_from
-import datetime, pytest
+import datetime
+
+import pytest
 from freezegun import freeze_time
+
+from functions.level_1.two_date_parser import compose_datetime_from
 
 
 @freeze_time("2023-06-01 12:00:00")

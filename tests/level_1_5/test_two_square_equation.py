@@ -1,5 +1,6 @@
-from functions.level_1_5.two_square_equation import solve_square_equation
 import pytest
+
+from functions.level_1_5.two_square_equation import solve_square_equation
 
 
 def test__solve_square_equation__return_none_if_discriminant_is_negative():

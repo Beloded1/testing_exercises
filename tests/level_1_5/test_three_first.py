@@ -1,5 +1,6 @@
-from functions.level_1_5.three_first import first
 import pytest
+
+from functions.level_1_5.three_first import first
 
 
 @pytest.mark.parametrize(

@@ -1,6 +1,8 @@
-from functions.level_1.four_bank_parser import BankCard, SmsMessage, parse_ineco_expense
 import datetime
 import decimal
+
+from functions.level_1.four_bank_parser import (BankCard, SmsMessage,
+                                                parse_ineco_expense)
 
 
 def test__parse_ineco_expense__succes():

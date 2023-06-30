@@ -1,5 +1,6 @@
-from functions.level_1.one_gender import genderalize
 import pytest
+
+from functions.level_1.one_gender import genderalize
 
 
 @pytest.mark.parametrize(

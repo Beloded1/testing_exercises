@@ -1,6 +1,7 @@
-from functions.level_1_7.two_expense_categorizer import guess_expense_category
-from functions.level_1_7.models import ExpenseCategory
 import pytest
+
+from functions.level_1_7.models import ExpenseCategory
+from functions.level_1_7.two_expense_categorizer import guess_expense_category
 
 
 @pytest.mark.parametrize(

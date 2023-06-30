@@ -1,5 +1,6 @@
-from functions.level_1.five_title import change_copy_item
 import pytest
+
+from functions.level_1.five_title import change_copy_item
 
 
 def test__change_copy_item__add_copy(): 
