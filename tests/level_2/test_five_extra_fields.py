@@ -1,5 +1,4 @@
-from functions.level_2.five_extra_fields import (
-    fetch_app_config_field, fetch_extra_fields_configuration)
+from functions.level_2.five_extra_fields import fetch_extra_fields_configuration, fetch_app_config_field
 
 
 def test__fetch_extra_fields_configuration__get_without_config_return_empty_dict(mock_config_parser):
